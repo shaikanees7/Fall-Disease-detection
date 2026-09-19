@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Fall Detection System - Computer Vision Prototype</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand" onclick="navigateTo('home')">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12h3l2-9 5 18 3-9 2 4h4"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">FallVision</span>
+                    <span class="brand-tag">AI Computer Vision</span>
+                </div>
+            </div>
+            
+            <nav class="nav-links">
+                <button class="nav-btn active" id="nav-home" onclick="navigateTo('home')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Home
+                </button>
+                <button class="nav-btn" id="nav-camera" onclick="navigateTo('camera')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                    Camera
+                </button>
+                <button class="nav-btn" id="nav-upload" onclick="navigateTo('upload')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 16 3-8 3 8"/><path d="M4 14.89 12 3l8 11.89"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
+                    Upload Video
+                </button>
+            </nav>
+
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                System Ready
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- PAGE 1: HOME VIEW -->
+        <section id="view-home" class="page-view active-view">
+            <div class="hero-section">
+                <div class="hero-badge">Computer Vision Based Fall Detection</div>
+                <h1 class="hero-title">Human Fall Detection System</h1>
+                <p class="hero-description">
+                    Monitor and analyze human activity using camera input or prerecorded video. Designed for real-time safety monitoring and immediate automated fall recognition.
+                </p>
+            </div>
+
+            <div class="cards-container">
+                <!-- Option Card 1: Camera -->
+                <div class="option-card" onclick="navigateTo('camera')">
+                    <div class="card-icon-wrapper camera-glow">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">Open Camera</h2>
+                        <p class="card-description">Use your camera for real-time monitoring.</p>
+                    </div>
+                    <button class="card-btn primary-btn">
+                        <span>Start Camera</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+
+                <!-- Option Card 2: Upload Video -->
+                <div class="option-card" onclick="navigateTo('upload')">
+                    <div class="card-icon-wrapper video-glow">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="23 7 16 12 23 17 23 7"/>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">Upload Video</h2>
+                        <p class="card-description">Select a prerecorded video for analysis.</p>
+                    </div>
+                    <button class="card-btn secondary-btn">
+                        <span>Choose Video</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: CAMERA VIEW -->
+        <section id="view-camera" class="page-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                    Back to Home
+                </button>
+                <div class="header-titles">
+                    <h2>Live Camera Interface</h2>
+                    <p>Real-time visual monitoring feed</p>
+                </div>
+            </div>
+
+            <div class="preview-container">
+                <div class="camera-placeholder">
+                    <div class="camera-overlay">
+                        <div class="scan-line"></div>
+                        <div class="viewfinder-corner top-left"></div>
+                        <div class="viewfinder-corner top-right"></div>
+                        <div class="viewfinder-corner bottom-left"></div>
+                        <div class="viewfinder-corner bottom-right"></div>
+                    </div>
+                    
+                    <div class="placeholder-content">
+                        <div class="icon-circle">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                                <circle cx="12" cy="13" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="placeholder-title">Camera Preview</h3>
+                        <div class="status-pill ready-pill">
+                            <span class="status-dot"></span>
+                            Camera is ready to start
+                        </div>
+                        <p class="placeholder-subtext">Click start when connected to real-time vision backend.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: UPLOAD VIDEO VIEW -->
+        <section id="view-upload" class="page-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                    Back to Home
+                </button>
+                <div class="header-titles">
+                    <h2>Video Analysis</h2>
+                    <p>Upload a recorded video to detect fall events</p>
+                </div>
+            </div>
+
+            <div class="upload-container">
+                <!-- Dropzone / Input Area -->
+                <div class="upload-box" id="drop-zone" onclick="document.getElementById('video-input').click()">
+                    <input type="file" id="video-input" accept=".mp4,.avi,.mov,.mkv" onchange="handleFileSelect(event)" hidden>
+                    <div class="upload-icon">
+                        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <h3>Choose Video File</h3>
+                    <p class="upload-hint">Drag & drop your file here or click to browse</p>
+                    <span class="format-badge">Supported formats: MP4, AVI, MOV, MKV</span>
+                </div>
+
+                <!-- Selected Video Preview Container (Initially Hidden) -->
+                <div class="video-preview-wrapper" id="preview-wrapper" style="display: none;">
+                    <div class="file-info-bar">
+                        <div class="file-details">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 16 3-8 3 8"/><path d="M4 14.89 12 3l8 11.89"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
+                            <span id="selected-filename" class="filename">video_sample.mp4</span>
+                        </div>
+                        <button class="change-file-btn" onclick="document.getElementById('video-input').click()">
+                            Change Video
+                        </button>
+                    </div>
+
+                    <div class="player-box">
+                        <video id="video-player" controls preload="metadata">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+
+                    <div class="action-bar">
+                        <button class="analyze-btn" id="analyze-btn" onclick="triggerAnalysis()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            Analyze Video
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Toast / Notice Container -->
+                <div class="toast-notice" id="toast-notice" style="display: none;">
+                    <div class="toast-content">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <span id="toast-message">Video ready for analysis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Human Fall Detection System &copy; 2026 | Computer Vision Research Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
