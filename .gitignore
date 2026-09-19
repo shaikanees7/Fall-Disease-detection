@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Logs
+logs/*.log
+logs/*
+!logs/.gitkeep
+
+# Models
+models/*.pt
+models/*.onnx
+models/*.engine
+!models/.gitkeep
+
+# Videos input/output media
+videos/input/*
+!videos/input/.gitkeep
+videos/output/*
+!videos/output/.gitkeep
+
+# IDEs & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,5 @@
+# Human Fall Detection System - Dependencies
+opencv-python
+ultralytics
+numpy
+pytest
